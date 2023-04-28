@@ -161,4 +161,29 @@ router.get('/', async function(req, res, next) {
     console.log('open url ok');
 });
 
+router.get('/info', async function(req, res, next) {
+    if(req.cookies['dycookie'] == undefined){
+        var data = ({
+            work:false
+        })
+        res.render('index', data);
+        return
+    }
+    if (req.query.url == ''){
+        // 默认视频
+        req.query.url = 'https://v.douyin.com/NKyY6Ch/'
+    }
+    let dyurl = req.query.url;
+    await GetID(res,dyurl).then(item_ids => {
+        GetInfo(res,item_ids,req.cookies['dycookie']).then(data => {
+            //console.log('data',data);
+            res.send(data);
+        });
+    }).catch((error) =>{
+        console.log('GetID Error',error);
+        res.render('error');
+    });
+
+});
+
 module.exports = router;
