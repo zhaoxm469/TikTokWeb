@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
+    "dev":"pm2 start ./bin/www --name tikTok"
   },
   "dependencies": {
     "axios": "^0.26.1",
